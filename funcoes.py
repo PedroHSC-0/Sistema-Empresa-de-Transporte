@@ -1,9 +1,3 @@
-# Estrutura de dados
-
-
-
-
-
 def cadastrar_linha():
     pass
 
