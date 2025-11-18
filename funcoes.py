@@ -10,3 +10,5 @@ def consultar_assento():
 def reservar_assento():
     pass
 
+def ler_arquivo_reservas():
+    pass[]
