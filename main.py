@@ -1,5 +1,5 @@
 import time
-from funcoes import aviso, cadastrar_linha, remover_linha, alterar_linha, consultar_horario, reservar_assento, consultar_assento, ler_arquivo_reservas, linha, onibus
+from funcoes import aviso, cadastrar_linha, remover_linha, alterar_linha, mostrar_linhas, consultar_horario, reservar_assento, consultar_assento, ler_arquivo_reservas, Linha, Onibus
 
 menu = """
 |-------------SISTEMA DE TRANSPORTE DE PASSAGEIROS-------------|
@@ -7,50 +7,59 @@ menu = """
 |  [1] - Inserir linha                                         |     
 |  [2] - Remover linha                                         |
 |  [3] - Alterar linha                                         |
-|  [4] - Consultar horários                                    |
-|  [5] - Sair                                                  |
+|  [4] - Mostrar linhas                                        |
+|  [5] - Consultar horários                                    |
+|  [6] - Sair                                                  |
 |                                                              |
 |--------------------------------------------------------------|
 """
 
 # MAIN
 
+
 linhas_cadastradas = []
 
-viagem_marcadas = []
-
-linha_teste = linha("Sao Paulo", "Campinas", "14:30", "55.00")
+"""
+linha_teste = Linha("Sao Paulo", "Campinas", "14:30", "55.00")
 
 linhas_cadastradas.append(linha_teste)
 
-busao = onibus(linha_b = linha_teste,data_p="10/10/2025")
-
-viagem_marcadas.append(busao)
-
+busao = Onibus(linha_b = linha_teste,data_p="10/10/2025")
+"""
 
 opcao = 0
+aviso("Iniciando Sistema", atraso=0.4)
 while True:
-
     print(menu)
-    try: 
-        opcao = int(input())
-    except:
-        aviso("Tipo inválido de entrada")
+    while True:
+        try:
+            opcao = input()
+            if opcao:
+                opcao = int(opcao)
+                break
+        except:
+            aviso("Tipo inválido de entrada")
+            continue
 
     match opcao:
         case 1:
-            cadastrar_linha()
+            cadastrar_linha(linhas_cadastradas)
+            aviso("Linha cadastrada com sucesso")
         case 2:
-            remover_linha()
+            remover_linha(linhas_cadastradas)
+            aviso("Linha removida com sucesso")
         case 3:
-            alterar_linha()
+            alterar_linha(linhas_cadastradas)
+            aviso("Linha alterada com sucesso")
         case 4:
-            consultar_horario()
+            mostrar_linhas(linhas_cadastradas)
         case 5:
-            aviso("Saindo")
+            consultar_horario(linhas_cadastradas)
+            aviso("", atraso=0.1)
+        case 6:
+            aviso("Saindo", atraso=0.6)
             break
         case _:
-            print("DIgite uma opcao valida")
+            aviso("Digite uma opção válida", atraso=0.6)
     
-    
-    break
+
