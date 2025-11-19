@@ -1,9 +1,8 @@
-import funcoes
 import time
 
 def cadastrar_linha():
             print("====Cadastro de Linha====")
-            
+          
             cidade_d = input("Qual a cidade de destino da sua linha?")
             cidade_o = input("Qual a cidade de origem da sua linha?")
             horario_p = input("Qual o horario de partida da sua linha?")
@@ -19,6 +18,45 @@ def remover_linha():
 def alterar_linha():
     print("====Alteração de Linha====")
     
+def consultar_horario():
+        print("====Consulta de Horarios====")
+        
+        cidade = str(input("Para qual cidade voce quer ir?"))
+        horario = str(input("Qual horario voce deseja consultar?"))
+        
+        for linha in linhas_cadastradas:
+            if (linha.cidade_d == cidade and linha.horario_p == horario):
+                print(f"O horario disponivel para a cidade {cidade} eh {linha.horario_p}")
+                break
+        else:
+            print(f"Nenhuma linha encontrada para o destino {cidade} e nesse horario de {horario}")          
+            
+                
+        """print("pessoa vai reservar pela linha e com isso vai receber as informações da passagem o numero do lugar e se é janela ou nao ")
+        
+        print("mostrando todos os horarios de todas as linhas possiveis")
+        
+        print("com isso a pessoa escolhe a linha e os outros dados e la ela compra a passagem")"""
+
+def reservar_assento():
+        pass
+
+def consultar_assento():
+    print("infomar cidade destino")
+    print("horario e data e data tem que ser inferior a 30 dias contados do dia atual")
+    
+    resposta = input(int("Vai reservar assento(1-Sim/2-Nao)"))
+    
+    if resposta ==1 :
+        reservar_assento()
+
+    
+
+
+def ler_arquivo_reservas():
+    pass
+
+    
 class linha:
     
     def __init__(self,cidade_d,cidade_o,horario_p,valor_p):
@@ -26,41 +64,13 @@ class linha:
         self.cidade_o= cidade_o
         self.horario_p = horario_p
         self.valor_p = valor_p
-        
-            
-        def consultar_horario(self):
-            print("====Consulta de Horarios====")
-            
-            cidade = str(input("Para qual cidade voce quer ir?"))
-            
-            for i in linhas_cadastradas:
-                if cidade == self.cidade_d:
-                    print("Os horarios disponiveis para esta cidade sao")            
-                   
-            print("pessoa vai reservar pela linha e com isso vai receber as informações da passagem o numero do lugar e se é janela ou nao ")
-            
-            print("mostrando todos os horarios de todas as linhas possiveis")
-            
-            print("com isso a pessoa escolhe a linha e os outros dados e la ela compra a passagem")
 
-        def reservar_assento():
-            pass
-
-        def consultar_assento():
-            print("infomar cidade destino")
-            print("horario e data e data tem que ser inferior a 30 dias contados do dia atual")
-            
-            resposta = input(int("Vai reservar assento(1-Sim/2-Nao)"))
-            
-            if resposta ==1 :
-                reservar_assento()
-
-        
+class onibus:
     
-    
-        def ler_arquivo_reservas():
-            pass
-
+    def __init__(self,linha_b,data_p):
+        self.linha = linha_b
+        self.data_p = data_p
+        self.assento = 
 
 """
 Linhas:
@@ -91,7 +101,15 @@ menu = """
 
 linhas_cadastradas = []
 
-linhas_cadastradas.append(cadastrar_linha)
+viagem_marcadas = []
+
+linha_teste = linha("Sao Paulo", "Campinas", "14:30", "55.00")
+
+linhas_cadastradas.append(linha_teste)
+
+busao = onibus(linha_b = linha_teste,data_p="10/10/2025")
+
+viagem_marcadas.append(busao)
 
 
 opcao = 0
