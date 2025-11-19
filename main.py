@@ -43,15 +43,35 @@ def reservar_assento():
         pass
 
 def consultar_assento():
-    print("infomar cidade destino")
-    print("horario e data e data tem que ser inferior a 30 dias contados do dia atual")
+    print("====Conferindo Assentos Disponiveis====")
     
-    resposta = input(int("Vai reservar assento(1-Sim/2-Nao)"))
+    cidade_d = str(input("Qual cidade de destino que voce ira viajar? "))
+    horario = str(input("Qual o horario da sua viagem?"))
+    data = str(input("Qual a data da sua viagem?"))
+    
+    #verificar 30 dias 
+    
+    #procurar onibus que correspondem as informações
+    
+    print("====Assentos Disponiveis====")
+    livres = 0
+    
+    for i,ocupado in enumerate(busao.assento):#o i é o indice do assento e o ocupado é valor do assento 
+        status = "Livre" if not ocupado else "Ocupado"# False,logo nao esta ocupado => Livre e True ,logo esta ocupado => Ocupado
+        
+        print(f"Assento {i+1}: {status}")#printando os assentos e seus status 
+        
+        if not ocupado:
+            livres += 1#quantidade de assentos livres
+            
+    if livres == 0:
+        print("\nNenhum assento disponível!")
+        return
+    
+    resposta = int(input("Vai reservar assento(1-Sim/2-Nao)"))
     
     if resposta ==1 :
         reservar_assento()
-
-    
 
 
 def ler_arquivo_reservas():
