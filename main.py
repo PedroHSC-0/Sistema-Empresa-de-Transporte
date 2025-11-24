@@ -19,14 +19,6 @@ menu = """
 
 linhas_cadastradas = []
 
-"""
-linha_teste = Linha("Sao Paulo", "Campinas", "14:30", "55.00")
-
-linhas_cadastradas.append(linha_teste)
-
-busao = Onibus(linha_b = linha_teste,data_p="10/10/2025")
-"""
-
 opcao = 0
 aviso("Iniciando Sistema", atraso=0.4)
 while True:
