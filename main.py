@@ -54,4 +54,3 @@ while True:
         case _:
             aviso("Digite uma opção válida", atraso=0.6)
     
-
