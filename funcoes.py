@@ -61,7 +61,7 @@ def cadastrar_linha(linhas_cadastradas):
         
         break
 
-    print("====Cadastro de Linha====")
+    print("|========Cadastro de Linha========|")
 
 
 
@@ -124,7 +124,7 @@ def mostrar_linhas(linhas_cadastradas, todas=True, id_mostrar=None):
 # Função para remover uma linha do sistema através do ID dado. Funcionando
 def remover_linha(linhas_cadastradas):
     while True:
-        print("====Remoção De Linha====")
+        print("|========Remoção De Linha========|")
 
         try:
             id_remover = int(input("Insira o ID da linha a ser removida: "))
