@@ -26,7 +26,7 @@ class Linha:
 class Onibus:
     def __init__(self, data_p):
         self.data_p = data_p
-        self.assento = [True for i in range(20)]
+        self.assento = [False for i in range(20)]
 
     # Função que verifica se há assentos disponiveis dentro do ônibus
     def possui_assento_disponivel(self):
@@ -219,13 +219,77 @@ def alterar_linha(linhas_cadastradas):
             break
 
 # Função que realiza reserva dos assentos de um ônibus (A função também é chamada dentro da função: consultar_horario)
-def reservar_assento(linhas_cadastradas):
+def reservar_assento(linha):
     while True:    
-        dia = str(input("Insira o dia que você deseja reservar(EX: dd/mm): "))
+        data = str(input("Insira o dia que você deseja reservar(EX: dd/mm/aaaa): ")).strip()
 
-        if not dia:
+        if not data:
             aviso("Insira um valor válido")
             continue    
+        
+        #Procurando busao do assento
+        busao_achado = None
+        for bus in linha.onibus:
+            if bus.data_p == data:
+                busao_achado = bus
+                break
+        
+        
+        if not busao_achado :
+            print("Onibus nao encontrado com a data mencionada!!!")
+            continue
+
+        print(f"\nÔnibus encontrado para a data: {busao_achado.data_p}")
+        break
+
+
+    #olhando todos os assentos do busao        
+    if all(busao_achado.assento):
+        print("Não há assentos livres neste ônibus!")
+        return    
+  
+    #mostrand0 os acentos do busu 
+    print("\nAssentos disponíveis:")
+    
+    for idx, ocupado in enumerate(busao_achado.assento):
+        status = "Ocupado" if ocupado else "Livre"
+        print(f"{idx+1:02d} - {status}")
+  
+            
+    try:    
+        #escolhendo assento que sera reservado
+        numero = int(input("\n Escolha o numero que sera reservado por voce:  "))
+        if numero < 1 and numero > 20:
+            print("Assento invalido")
+            return 
+        
+        if busao_achado.assento[numero-1]:
+            print("Assento ja esta ocupado ")
+            return 
+        
+    except ValueError:
+        print("Entrada Invalida")
+        return 
+    
+    #confirmando nossa reserva
+    print(f"\n Assento {numero} esta disponvel")
+    confirmar = input("Confirma este lugar da reserva (s/n): ").lower()
+    
+    
+    if confirmar != 's':
+        print("Reserva cancelada ")
+        return 
+    
+    
+    busao_achado.assento[numero-1] = True
+    
+    #identificando janela ou corredor
+    tipo = "Janela" if numero % 2 != 0 else "Corredor"
+    
+    print(f"Assento {numero} reservado com sucesso! {tipo} ")    
+    
+    print(f"Data da viagem: {busao_achado.data_p}\n")
+       
         
 # Função para consultar horários das linhas, se encontrar, pergunta ao usuário
 # Eu alterei a pesquisa, tirei a pergunta de horários pq n faz sentido perguntar o horário já que é só um horário por linha
@@ -234,7 +298,7 @@ def consultar_horario(linhas_cadastradas):
 
     while True:
 
-        cidade = str(input("Para qual cidade voce quer ir? "))
+        cidade = str(input("Para qual cidade voce quer ir? ")).strip()
 
         if not cidade:
             aviso("Insira um nome válido")
@@ -245,23 +309,59 @@ def consultar_horario(linhas_cadastradas):
     
     # Percorre as linhas para encontrar a escolhida pelo usuário, e verifica se há assentos disponíveis no horário indicado,
     # E pergunta ao usuário se ele deseja realizar uma reserva
+    
+    linhas_encontradas = []
+    
     for linha in linhas_cadastradas:
         # Encontrar a linha e o onibus
-        if linha.cidade_d == cidade:
+        if linha.cidade_d.lower() == cidade.lower():
+            linhas_encontradas.append(linha)
+
+    if not linhas_encontradas:
+        aviso(f"Nenhuma linha encontrada para {cidade}")
+        return
+
             # Se for encontrado, verifica se tem assentos disponíveis
 
-            print(f"Há viagens para a {linha.cidade_d} no horário {linha.horario_p}")
-            escolha = int(input("Deseja fazer uma reserva? [0-Não | 1-Sim]"))
-
-            if escolha:
-                reservar_assento(linhas_cadastradas, linha)
+    print("\nLinhas disponíveis:")
+    print("-------------------------------------")
+    for linha in linhas_encontradas:
+        print(f"{linha.id}) {linha.cidade_o} -> {linha.cidade_d} | Horário: {linha.horario_p} | Valor: R${linha.valor:.2f}")
+    print("-------------------------------------")
+            
+    #escolhendo qual linha sera reservada
+    while True:
+        try:
+            id_escolhido = int(input("Qual o id dessa linha que voce quer viajar? "))
+        except ValueError:
+            aviso("Digite um numero valido")
+            continue
+        
+        #procurando nossa linha por ai
+        linha_selecionada = None
+        for linha in linhas_encontradas:
+            if linha.id == id_escolhido:
+                linha_selecionada = linha
                 break
-            else:
-                aviso("Voltando ao menu.")
-                break
+            
+        if not linha_selecionada:
+            aviso("ID nao encontrado nas opcoes listadas")
+            continue
+        
+        break
 
-    else:
-        print(f"Nenhuma linha encontrada para o destino: {linha.cidade_d}")        
+
+    #confirmação da reserva
+    
+    print(f"\nVoce escolheu a linha para {linha_selecionada.cidade_d} no horario {linha_selecionada.horario_p}.")
+    
+    escolha = input("Deseja fazer uma reserva? [s/n]: ").lower()
+
+    if escolha != "s":
+        aviso("Voltando ao menu.")
+        return
+    
+    reservar_assento(linhas_cadastradas, linha_selecionada)  
 
     """
     print("pessoa vai reservar pela linha e com isso vai receber as informações da passagem o numero do lugar e se é janela ou nao ")
