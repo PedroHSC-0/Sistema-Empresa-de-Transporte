@@ -9,7 +9,9 @@ menu = """
 |  [3] - Alterar linha                                         |
 |  [4] - Mostrar linhas                                        |
 |  [5] - Consultar horários                                    |
-|  [6] - Sair                                                  |
+|  [6] - Consultar Assentos                                    |
+|  [7] - Ler reservas no arquivo                               |
+|  [8] - Sair                                                  |
 |                                                              |
 |--------------------------------------------------------------|
 """
@@ -18,6 +20,8 @@ menu = """
 
 
 linhas_cadastradas = []
+
+ler_arquivo_reservas(linhas_cadastradas)
 
 opcao = 0
 aviso("Iniciando Sistema", atraso=0.4)
@@ -49,6 +53,12 @@ while True:
             consultar_horario(linhas_cadastradas)
             aviso("", atraso=0.1)
         case 6:
+            consultar_assento(linhas_cadastradas)
+            aviso("", atraso=0.1)
+        case 7:
+            ler_arquivo_reservas(linhas_cadastradas)
+            aviso("", atraso=0.1)
+        case 8:
             aviso("Saindo", atraso=0.6)
             break
         case _:
