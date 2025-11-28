@@ -61,7 +61,7 @@ def cadastrar_linha(linhas_cadastradas):
         
         break
 
-    print("|========Cadastro de Linha========|")
+    print("====Cadastro de Linha====")
 
 
 
@@ -124,7 +124,7 @@ def mostrar_linhas(linhas_cadastradas, todas=True, id_mostrar=None):
 # Função para remover uma linha do sistema através do ID dado. Funcionando
 def remover_linha(linhas_cadastradas):
     while True:
-        print("|========Remoção De Linha========|")
+        print("====Remoção De Linha====")
 
         try:
             id_remover = int(input("Insira o ID da linha a ser removida: "))
@@ -259,7 +259,7 @@ def reservar_assento(linha):
     try:    
         #escolhendo assento que sera reservado
         numero = int(input("\n Escolha o numero que sera reservado por voce:  "))
-        if numero < 1 and numero > 20:
+        if numero < 1 or numero > 20:
             print("Assento invalido")
             return 
         
@@ -283,12 +283,29 @@ def reservar_assento(linha):
     
     busao_achado.assento[numero-1] = True
     
+    salvar_reserva(linha, busao_achado.data_p, numero)
+    
     #identificando janela ou corredor
     tipo = "Janela" if numero % 2 != 0 else "Corredor"
     
     print(f"Assento {numero} reservado com sucesso! {tipo} ")    
     
     print(f"Data da viagem: {busao_achado.data_p}\n")
+    
+    valor_formatado = f"R${linha.valor:,.2f}".replace(".", ",")
+    print("------------------------------------------")
+    print("          COMPROVANTE DE RESERVA          ")
+    print("------------------------------------------")
+    print(f"Linha: {linha.id}")
+    print(f"Origem: {linha.cidade_o}")
+    print(f"Destino: {linha.cidade_d}\n")
+    print(f"Data da viagem: {busao_achado.data_p}")
+    print(f"Horário de partida: {linha.horario_p}\n")
+    print(f"Assento: {numero} ({tipo})")
+    print(f"Valor da passagem: {valor_formatado}")
+    print("------------------------------------------")
+    print("      OBRIGADO POR VIAJAR CONOSCO!")
+    print("------------------------------------------")
        
         
 # Função para consultar horários das linhas, se encontrar, pergunta ao usuário
@@ -361,7 +378,7 @@ def consultar_horario(linhas_cadastradas):
         aviso("Voltando ao menu.")
         return
     
-    reservar_assento(linhas_cadastradas, linha_selecionada)  
+    reservar_assento(linha_selecionada)  
 
     """
     print("pessoa vai reservar pela linha e com isso vai receber as informações da passagem o numero do lugar e se é janela ou nao ")
@@ -371,37 +388,157 @@ def consultar_horario(linhas_cadastradas):
     print("com isso a pessoa escolhe a linha e os outros dados e la ela compra a passagem")"""
 
 # Acho que essa função perdeu o sentido depois da criação da consultar_horario
-def consultar_assento(linhas_cadastradas, busao):
+def consultar_assento(linhas_cadastradas):
     print("====Conferindo Assentos Disponiveis====")
     
-    cidade_d = str(input("Qual cidade de destino que voce ira viajar? "))
-    horario = str(input("Qual o horario da sua viagem?"))
-    data = str(input("Qual a data da sua viagem?"))
+    cidade_d = str(input("Qual cidade de destino que voce ira viajar? ")).strip()
     
-    #verificar 30 dias 
+    if not cidade_d:
+        aviso("Cidade inválida")
+        return
     
-    #procurar onibus que correspondem as informações
+    #buscando as linhas para esta cidade especifica 
     
-    print("====Assentos Disponiveis====")
+    linhas_encontradas = []
+    
+    for linha in linhas_cadastradas:
+        if linha.cidade_d.lower() == cidade_d.lower():
+            linhas_encontradas.append(linha)
+    
+    if not linhas_encontradas:
+        aviso("Nenhuma linha encontrada para esta cidade")
+        return 
+    
+    print("\n Linhas Achadas \n")
+    
+    for linha in linhas_encontradas:
+        print(f"{linha.id} {linha.cidade_o} -> {linha.cidade_d} | Horario: {linha.horario_p}")
+    
+    #escolhendo a linha da viagem
+ 
+    try:
+        id_escolhido = int(input("\n Digite o ID da linha desejada: "))
+    except:
+        aviso("ID digitado Invalido")
+        return
+        
+    linha_escolhida = None
+
+    for l in linhas_encontradas:
+        if l.id == id_escolhido:
+            linha_escolhida = l
+            break
+    
+    if not linha_escolhida:
+        aviso("Linha nao encontrada")
+        return
+    
+    #pegando a data 
+
+    data = input("Digite a data da viagem (dd/mm/aaaa): ").strip()
+    
+    busao = None
+    
+    for b in linha_escolhida.onibus:
+        if b.data_p == data:
+            busao = b
+            break
+    
+    if not busao:
+        aviso("Nenhum onibus encontrado para tal data")
+        return 
+
+    print("\n==== Assentos Disponíveis ====")
     livres = 0
     
-    for i, ocupado in enumerate(busao.assento):#o i é o indice do assento e o ocupado é valor do assento 
-        status = "Livre" if not ocupado else "Ocupado"# False,logo nao esta ocupado => Livre e True ,logo esta ocupado => Ocupado
+    for i, ocupado in enumerate(busao.assento):
+        status = "Ocupado" if ocupado else "Livre"
         
-        print(f"Assento {i+1}: {status}")#printando os assentos e seus status 
-        
+        print(f"Assento {i+1}: {status}")
         if not ocupado:
-            livres += 1#quantidade de assentos livres
-            
+            livres += 1
+
     if livres == 0:
         print("\nNenhum assento disponível!")
         return
-    
-    resposta = int(input("Vai reservar assento(1-Sim/2-Nao)"))
-    
-    if resposta == 1:
-        reservar_assento(linhas_cadastradas)
 
+    # 6 - Perguntar se quer reservar
+    try:
+        resposta = int(input("\nVai reservar assento? (1-Sim / 2-Não): "))
+    except:
+        aviso("Opção inválida")
+        return
+
+    if resposta == 1:
+        reservar_assento(linha_escolhida)
+        
+        
 # Função que realiza a leitura de arquivos txt com reservas
-def ler_arquivo_reservas():
-    pass
+def ler_arquivo_reservas(linhas_cadastradas):
+    nome_arquivo = "reservas.txt"
+    
+    try:
+        with open(nome_arquivo,"r",encoding = "utf-8") as arquivo:
+            linhas = arquivo.readlines()
+            
+    except FileNotFoundError:
+        print("Arquivo de reservas nao encontrado.Nenhuma reserva carregada")
+        return 
+        
+    for linha in linhas:
+        linha = linha.strip()
+        if not linha:
+            continue
+        
+        
+        try:
+            id_linha,data,assento = linha.split(";")#quebrando nossa linha em pedaços
+            id_linha = int(id_linha)
+            assento = int(assento)
+            
+        except:
+            print(f"Linha invalida do arquivo: {linha}")
+            continue
+        
+        #na buca da linha correta
+        
+        linha_encontrada = None
+        
+        for l in linhas_cadastradas:
+            if l.id == id_linha:
+                linha_encontrada = l
+                break
+            
+        if not linha_encontrada:
+            print(f"Linha {id_linha} não encontrada no sistema. Ignorando reserva.")
+            continue
+        
+        # Procurando o ônibus correto pela data dentro da linha que achamos
+        onibus_encontrado = None
+        for bus in linha_encontrada.onibus:
+            if bus.data_p == data:
+                onibus_encontrado = bus
+                break
+            
+        if not onibus_encontrado:
+            print(f"Ônibus da data {data} não existe na linha {id_linha}.")
+            continue
+        
+        # Verificar se o assento é válido
+        if 1 <= assento <= 20:
+            onibus_encontrado.assento[assento - 1] = True
+        else:
+            print(f"Assento fora do limite: {assento}")
+
+    print("Reservas carregadas com sucesso!")
+    
+    
+def salvar_reserva(linha, data, assento):
+    nome_arquivo = "reservas.txt"
+
+    try:
+        with open(nome_arquivo, "a", encoding="utf-8") as arq:
+            arq.write(f"{linha.id};{data};{assento}\n")
+    except Exception as e:
+        print(f"Erro ao salvar reserva: {e}")
+        
