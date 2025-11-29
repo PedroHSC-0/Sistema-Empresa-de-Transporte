@@ -26,11 +26,11 @@ class Linha:
 class Onibus:
     def __init__(self, data_p):
         self.data_p = data_p
-        self.assento = [False for i in range(20)]
+        self.assentos = [False for i in range(20)]
 
     # Função que verifica se há assentos disponiveis dentro do ônibus
     def possui_assento_disponivel(self):
-        if True in self.assento: return True
+        if True in self.assentos: return True
         return False
 
 # Função para gerar avisos diversos
@@ -58,10 +58,9 @@ def cadastrar_linha(linhas_cadastradas):
             if linha.id == id_linha:
                 id_linha = id_linha + 1
                 continue
-        
         break
 
-    print("====Cadastro de Linha====")
+    print("|========Cadastro de Linha========|\n")
 
 
 
@@ -124,7 +123,7 @@ def mostrar_linhas(linhas_cadastradas, todas=True, id_mostrar=None):
 # Função para remover uma linha do sistema através do ID dado. Funcionando
 def remover_linha(linhas_cadastradas):
     while True:
-        print("====Remoção De Linha====")
+        print("|========Remoção De Linha========|")
 
         try:
             id_remover = int(input("Insira o ID da linha a ser removida: "))
@@ -227,7 +226,7 @@ def reservar_assento(linha):
             aviso("Insira um valor válido")
             continue    
         
-        #Procurando busao do assento
+        #Procurando busao do assentos
         busao_achado = None
         for bus in linha.onibus:
             if bus.data_p == data:
@@ -236,7 +235,7 @@ def reservar_assento(linha):
         
         
         if not busao_achado :
-            print("Onibus nao encontrado com a data mencionada!!!")
+            print("Onibus não encontrado com a data mencionada!!!")
             continue
 
         print(f"\nÔnibus encontrado para a data: {busao_achado.data_p}")
@@ -244,26 +243,26 @@ def reservar_assento(linha):
 
 
     #olhando todos os assentos do busao        
-    if all(busao_achado.assento):
+    if all(busao_achado.assentos):
         print("Não há assentos livres neste ônibus!")
         return    
   
     #mostrand0 os acentos do busu 
     print("\nAssentos disponíveis:")
     
-    for idx, ocupado in enumerate(busao_achado.assento):
+    for idx, ocupado in enumerate(busao_achado.assentos):
         status = "Ocupado" if ocupado else "Livre"
         print(f"{idx+1:02d} - {status}")
   
             
     try:    
-        #escolhendo assento que sera reservado
+        #escolhendo assentos que sera reservado
         numero = int(input("\n Escolha o numero que sera reservado por voce:  "))
         if numero < 1 or numero > 20:
             print("Assento invalido")
             return 
         
-        if busao_achado.assento[numero-1]:
+        if busao_achado.assentos[numero-1]:
             print("Assento ja esta ocupado ")
             return 
         
@@ -281,7 +280,7 @@ def reservar_assento(linha):
         return 
     
     
-    busao_achado.assento[numero-1] = True
+    busao_achado.assentos[numero-1] = True
     
     salvar_reserva(linha, busao_achado.data_p, numero)
     
@@ -306,8 +305,7 @@ def reservar_assento(linha):
     print("------------------------------------------")
     print("      OBRIGADO POR VIAJAR CONOSCO!")
     print("------------------------------------------")
-       
-        
+         
 # Função para consultar horários das linhas, se encontrar, pergunta ao usuário
 # Eu alterei a pesquisa, tirei a pergunta de horários pq n faz sentido perguntar o horário já que é só um horário por linha
 def consultar_horario(linhas_cadastradas):
@@ -451,7 +449,7 @@ def consultar_assento(linhas_cadastradas):
     print("\n==== Assentos Disponíveis ====")
     livres = 0
     
-    for i, ocupado in enumerate(busao.assento):
+    for i, ocupado in enumerate(busao.assentos):
         status = "Ocupado" if ocupado else "Livre"
         
         print(f"Assento {i+1}: {status}")
@@ -459,20 +457,19 @@ def consultar_assento(linhas_cadastradas):
             livres += 1
 
     if livres == 0:
-        print("\nNenhum assento disponível!")
+        print("\nNenhum assentos disponível!")
         return
 
     # 6 - Perguntar se quer reservar
     try:
-        resposta = int(input("\nVai reservar assento? (1-Sim / 2-Não): "))
+        resposta = int(input("\nVai reservar assentos? (1-Sim / 2-Não): "))
     except:
         aviso("Opção inválida")
         return
 
     if resposta == 1:
         reservar_assento(linha_escolhida)
-        
-        
+            
 # Função que realiza a leitura de arquivos txt com reservas
 def ler_arquivo_reservas(linhas_cadastradas):
     nome_arquivo = "reservas.txt"
@@ -492,15 +489,15 @@ def ler_arquivo_reservas(linhas_cadastradas):
         
         
         try:
-            id_linha,data,assento = linha.split(";")#quebrando nossa linha em pedaços
+            id_linha,data,assentos = linha.split(";")#quebrando nossa linha em pedaços
             id_linha = int(id_linha)
-            assento = int(assento)
+            assentos = int(assentos)
             
         except:
             print(f"Linha invalida do arquivo: {linha}")
             continue
         
-        #na buca da linha correta
+        #na busca da linha correta
         
         linha_encontrada = None
         
@@ -524,21 +521,85 @@ def ler_arquivo_reservas(linhas_cadastradas):
             print(f"Ônibus da data {data} não existe na linha {id_linha}.")
             continue
         
-        # Verificar se o assento é válido
-        if 1 <= assento <= 20:
-            onibus_encontrado.assento[assento - 1] = True
+        # Verificar se o assentos é válido
+        if 1 <= assentos <= 20:
+            onibus_encontrado.assentos[assentos - 1] = True
         else:
-            print(f"Assento fora do limite: {assento}")
+            print(f"Assento fora do limite: {assentos}")
 
     print("Reservas carregadas com sucesso!")
-    
-    
-def salvar_reserva(linha, data, assento):
+     
+def salvar_reserva(linha, data, assentos):
     nome_arquivo = "reservas.txt"
 
     try:
         with open(nome_arquivo, "a", encoding="utf-8") as arq:
-            arq.write(f"{linha.id};{data};{assento}\n")
+            arq.write(f"{linha.id};{data};{assentos}\n")
+
     except Exception as e:
         print(f"Erro ao salvar reserva: {e}")
+
+# Função pra gerar relatório       
+def gerar_relatorio(linhas_cadastradas):
+    
+    menu2 = """
+|--------------------------------|
+| Como deseja gerar o relatório? |
+|                                |
+|-> [1] Terminal                 |
+|-> [2] Arquivo de texto         |
+|                                |
+|--------------------------------|
+
+"""
+    tempo_agora = datetime.now()
+    mensagem = ""
+
+    # Escolha do formato
+    while True:
+        try:
+            opcao = int(input(menu2))
+
+            if opcao != "" and (opcao == 1 or opcao == 2): break
+
+        except:
+            aviso("Digite um valor válido")
+
+    # Coleta de dados do relatório:
+    # Valor arrecadado
+
+    valor_arrecadado = 0
+    for linha in linhas_cadastradas:
+        valor_arrecadado = 0
+        for onibus in linha.onibus:
+            for assento in onibus.assentos:
+                if assento == True:
+                    valor_arrecadado = valor_arrecadado + linha.valor
+        else:
+            valor_formatado = f"R${valor_arrecadado:,.2f}".replace(".", ",")
+            mensagem = mensagem + f"| {linha.id}-) {linha.cidade_o} -> {linha.cidade_d} | Valor arrecadado: R${valor_formatado}"
+
+    parte1 = f"""
+|=============================================================|
+| Relatório gerado em {tempo_agora.day}/{tempo_agora.month}/{tempo_agora.year} {tempo_agora.hour}:{tempo_agora.minute}:{tempo_agora.second}
+|
+| Valor arrecadado pelas linhas registradas:
+|"""
+    parte2 = """|
+|=============================================================|\n\n"""
+
+    if len(linhas_cadastradas) == 0:
+        conteudo = f"{parte1}\n| Nenhuma Linha Cadastrada\n{parte2}"
+    else:
+        conteudo = f"{parte1}\n{mensagem}\n{parte2}"
+
+    if opcao == 1:
+        print(conteudo)
         
+    elif opcao == 2:
+        try:
+            with open("relatorios.txt", "a", encoding="utf-8") as arquivo:
+                arquivo.write(conteudo)
+            print("Relatório salvo com sucesso!")
+        except Exception as e:
+            print("Erro ao salvar relatório:", e)

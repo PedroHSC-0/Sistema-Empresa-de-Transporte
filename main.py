@@ -1,5 +1,5 @@
 import time
-from funcoes import aviso, cadastrar_linha, remover_linha, alterar_linha, mostrar_linhas, consultar_horario, reservar_assento, consultar_assento, ler_arquivo_reservas, Linha, Onibus
+from funcoes import aviso, cadastrar_linha, remover_linha, alterar_linha, mostrar_linhas, consultar_horario, consultar_assento, ler_arquivo_reservas, gerar_relatorio
 
 menu = """
 |-------------SISTEMA DE TRANSPORTE DE PASSAGEIROS-------------|
@@ -11,7 +11,8 @@ menu = """
 |  [5] - Consultar horários                                    |
 |  [6] - Consultar Assentos                                    |
 |  [7] - Ler reservas no arquivo                               |
-|  [8] - Sair                                                  |
+|  [8] - Gerar relatório                                       |
+|  [9] - Sair                                                  |
 |                                                              |
 |--------------------------------------------------------------|
 """
@@ -51,14 +52,14 @@ while True:
             mostrar_linhas(linhas_cadastradas)
         case 5:
             consultar_horario(linhas_cadastradas)
-            aviso("", atraso=0.1)
         case 6:
             consultar_assento(linhas_cadastradas)
-            aviso("", atraso=0.1)
         case 7:
             ler_arquivo_reservas(linhas_cadastradas)
             aviso("", atraso=0.1)
         case 8:
+            gerar_relatorio(linhas_cadastradas)
+        case 9:
             aviso("Saindo", atraso=0.6)
             break
         case _:
