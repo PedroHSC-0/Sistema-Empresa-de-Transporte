@@ -1,0 +1,14 @@
+
+|=============================================================|
+| Relatório gerado em 1/12/2025 20:32:20
+|
+| Valor arrecadado pelas linhas registradas:
+|| 1-) divinops -> lavras | Valor arrecadado: R$0,00| 2-) divnops -> bh | Valor arrecadado: R$500,00
+|=============================================================|
+
+Matriz de Ocupação Média (%) por Dia da Semana:
+Linha | Seg | Ter | Qua | Qui | Sex | Sab | Dom
+----------------------------------------------------------------------
+1     | 0.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00% 
+2     | 1.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00%  | 0.00% 
+
