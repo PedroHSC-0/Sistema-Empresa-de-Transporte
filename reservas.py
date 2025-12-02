@@ -1,16 +1,11 @@
 from util import aviso
 from datetime import datetime, timedelta
 
-
 def registrar_falha(linha_original, motivo, nome="reservas_nao_realizadas.txt"):
     """Funcao que registra as falhas no arquivo"""
     with open(nome, "a", encoding="utf-8") as arq:
         arq.write(f"{linha_original} -> Motivo: {motivo}\n")            
         
-        
-        
-            
-
 def ler_arquivo_reservas(linhas_cadastradas):
     """Função que realiza a leitura de arquivos txt com reservas"""
     
@@ -99,10 +94,7 @@ def ler_arquivo_reservas(linhas_cadastradas):
         print(f"Reserva aplicada: {cidade}, {horario}, {data_txt}, Assento {assento}")
 
     print("Reservas carregadas.")
-
-     
-     
-     
+    
 def salvar_reserva(linha, data, assento):
     """Funcao que salva as reservas no txt"""
     nome_arquivo = "reservas.txt"
@@ -114,10 +106,6 @@ def salvar_reserva(linha, data, assento):
     except Exception as e:
         print(f"Erro ao salvar reserva: {e}")
         
-        
-        
-        
-
 def reservar_assento(linha,busao_achado):
     """Função que realiza reserva dos assentos de um ônibus (A função também é chamada dentro da função: consultar_horario)"""    
     
@@ -158,6 +146,7 @@ def reservar_assento(linha,busao_achado):
 
     # Reservando o assento
     busao_achado.assentos[numero - 1] = True
+    linha.valor_arrecadado = linha.valor_arrecadado + linha.valor
     salvar_reserva(linha, busao_achado.data_p, numero)
 
     tipo = "Janela" if numero % 2 != 0 else "Corredor"
@@ -168,7 +157,7 @@ def reservar_assento(linha,busao_achado):
     print("------------------------------------------")
     print("          COMPROVANTE DE RESERVA          ")
     print("------------------------------------------")
-    print(f"Linha: {linha.id}")
+    print(f"ID da Linha: {linha.id}")
     print(f"Origem: {linha.cidade_o}")
     print(f"Destino: {linha.cidade_d}")
     print(f"Data da viagem: {busao_achado.data_p}")

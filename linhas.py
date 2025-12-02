@@ -3,8 +3,6 @@ from reservas import reservar_assento
 from util import aviso, validar_data_viagem
 from datetime import datetime, timedelta
 
-
-
 # Função que cadastra uma nova linha, pedindo todos atributos para gerar uma nova instância da classe linha e armazená-la na lista "linhas_cadastradas". Funcionando
 def cadastrar_linha(linhas_cadastradas):
 
@@ -70,8 +68,7 @@ def cadastrar_linha(linhas_cadastradas):
     
     # DEPOIS: Adiciona ao dicionário usando o ID como chave
     linhas_cadastradas[id_linha] = nova_linha
-    
-    
+      
 # Função que mostra todas as linhas e suas informações. Funcionando
 def mostrar_linhas(linhas_cadastradas, todas=True, id_mostrar=None):
     if todas:
@@ -93,8 +90,6 @@ def mostrar_linhas(linhas_cadastradas, todas=True, id_mostrar=None):
             print("|--------------------------------------")
             valor_formatado = f"R${linha.valor:,.2f}".replace(".", ",")
             print(f"{linha.id}-) {linha.cidade_o} -> {linha.cidade_d}\n    Horário: {linha.horario_p} | Valor: {valor_formatado}")
-            
-
 
 # Função para remover uma linha do sistema através do ID dado
 def remover_linha(linhas_cadastradas):
@@ -114,13 +109,13 @@ def remover_linha(linhas_cadastradas):
                 
         except ValueError:
             aviso("Insira um valor válido")
-            continue
-        break
-    
+            continue 
 
 # Função para alterar dados da linha (Cidade Destino e horários).
 def alterar_linha(linhas_cadastradas):
     print("|========Alteração de Linha========|")
+
+    mostrar_linhas(linhas_cadastradas)
     
     while True: 
         try: 
@@ -208,8 +203,6 @@ def alterar_linha(linhas_cadastradas):
                 aviso("Opção inválida.")
                 continue
         
-        
-
 # Função para consultar horários das linhas, se encontrar, pergunta ao usuário
 def consultar_horario(linhas_cadastradas):
     print("|========Consulta de Horarios========|")
@@ -274,9 +267,7 @@ def consultar_horario(linhas_cadastradas):
     #emendando a funcao de consultar assento
     consultar_assento(linha_selecionada)
     
-    
-
-
+# Função para consultar assentos de uma certa linha
 def consultar_assento(linha):
     print("\n==== Conferindo Assentos Disponíveis ====")
 

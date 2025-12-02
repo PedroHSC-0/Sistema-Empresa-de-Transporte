@@ -1,4 +1,3 @@
-
 from linhas import (
     cadastrar_linha, mostrar_linhas, remover_linha,
     alterar_linha, consultar_horario
@@ -7,8 +6,7 @@ from linhas import (
 from reservas import ler_arquivo_reservas
 from relatorios import gerar_relatorio
 from util import aviso
-
-
+import time
 
 menu = """
 |-------------SISTEMA DE TRANSPORTE DE PASSAGEIROS-------------|
@@ -26,7 +24,6 @@ menu = """
 """
 
 # MAIN
-
 
 linhas_cadastradas = {}
 
@@ -58,6 +55,7 @@ while True:
             mostrar_linhas(linhas_cadastradas)
         case 5:
             consultar_horario(linhas_cadastradas)
+            time.sleep(3)
         case 6:
             ler_arquivo_reservas(linhas_cadastradas)
             aviso("", atraso=0.1)

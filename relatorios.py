@@ -32,23 +32,17 @@ def gerar_relatorio(linhas_cadastradas):
     # Coleta de dados do relatório:
     # Valor arrecadado
 
-    valor_arrecadado = 0
+
     for linha in linhas_cadastradas.values(): 
-        valor_arrecadado = 0
-        for onibus in linha.onibus:
-            for assento in onibus.assentos:
-                if assento == True:
-                    valor_arrecadado = valor_arrecadado + linha.valor
-        else:
-            valor_formatado = f"R${valor_arrecadado:,.2f}".replace(".", ",")
-            mensagem = mensagem + f"| {linha.id}-) {linha.cidade_o} -> {linha.cidade_d} | Valor arrecadado: {valor_formatado}"
+        valor_formatado = f"R${linha.valor_arrecadado:,.2f}".replace(".", ",")
+        mensagem = mensagem + f"| {linha.id}-) {linha.cidade_o} -> {linha.cidade_d} | Valor arrecadado: {valor_formatado}"
 
     parte1 = f"""
 |=============================================================|
 | Relatório gerado em {tempo_agora.day}/{tempo_agora.month}/{tempo_agora.year} {tempo_agora.hour}:{tempo_agora.minute}:{tempo_agora.second}
 |
 | Valor arrecadado pelas linhas registradas:
-|"""
+|\n"""
     parte2 = """
 |=============================================================|\n"""
 
@@ -76,13 +70,9 @@ def gerar_relatorio(linhas_cadastradas):
             print("Relatório salvo com sucesso!")
         except Exception as e:
             print("Erro ao salvar relatório:", e)
-            
-            
-
         
 def matriz_ocupacao(linhas_cadastradas):
     """Organizando as informações da matriz de ocupação"""
-    dias_semana = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"]
 
     matriz = []  
 
@@ -114,9 +104,6 @@ def matriz_ocupacao(linhas_cadastradas):
         matriz.append([linha.id, *percentuais])
 
     return matriz
-
-
-
 
 def formatar_matriz(matriz):
     """Organizando a forma que a matriz sera imprimida"""

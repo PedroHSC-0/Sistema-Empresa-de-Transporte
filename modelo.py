@@ -10,6 +10,7 @@ class Linha:
         self.cidade_d = cidade_d
         self.horario_p = horario_p
         self.valor = valor
+        self.valor_arrecadado = 0
         self.onibus = []
 
     def adicionar_onibus(self):

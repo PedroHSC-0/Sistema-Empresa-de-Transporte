@@ -3,7 +3,7 @@ import time
 import platform
 from datetime import datetime, timedelta
 
-
+# Função de avisos gerais, limpa o terminal quando executada
 def aviso(mensagem, atraso=0.5):
     """Função para gerar avisos diversos"""
     
@@ -19,11 +19,10 @@ def aviso(mensagem, atraso=0.5):
 
     time.sleep(atraso)
     os.system(limpar)
-    
-    
+      
+# Função que valida a data fornecida pelo usuário.
 def validar_data_viagem(data_str, horario_partida):
     """
-    Valida a data fornecida pelo usuário.
     Retorna:
       - (datetime.date, None) se OK
       - (None, motivo_str) se inválida
