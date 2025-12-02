@@ -38,7 +38,7 @@ O projeto é modularizado para melhor organização e manutenção:
 
 ---
 
-## 🛠️ Tecnologias e Dependências
+## Tecnologias e Dependências
 
 O sistema utiliza exclusivamente bibliotecas nativas do Python:
 
@@ -48,7 +48,7 @@ O sistema utiliza exclusivamente bibliotecas nativas do Python:
 
 ---
 
-## 💻 Como Executar
+## Como Executar
 
 Para rodar o sistema, você precisa ter o **Python 3** instalado em sua máquina.
 
