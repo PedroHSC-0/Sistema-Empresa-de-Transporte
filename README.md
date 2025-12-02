@@ -1,7 +1,8 @@
 # Sistema de Empresa de Transporte de Passageiros (Python)
 
-.Contribuintes:Pedro Francisco Sousa Silva,Pedro Henrique Silva Costa
-.Orientador: Guido Pantuza 
+*Contribuintes:Pedro Francisco Sousa Silva,Pedro Henrique Silva Costa
+
+*Orientador: Guido Pantuza 
 
 Este é um sistema que implementamos em python para organizar uma linha de transporte de passageiros,nos dando a possibilidade de criar,alterar,remover as linhas e poder adicionar os onibus a cada linha criada,podendo tambem no final do codigo gerar um relatorio e guardar em um txt as reservas.
 
