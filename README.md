@@ -29,36 +29,19 @@ Este é um sistema que implementamos em python para organizar uma linha de trans
         Da a possibilidade remoção,inserção e alteração
         Possa ver as linhas cadastradas
 
-    • Funcionalidades dos Horarios com Busões:
+  ### Funcionalidades dos Horarios com Busões:
+```
         1)Consultar horarios ,passando a cidade de origem e o ID do busao
         2)Apos consulta do horario,voce é redirecionado para ver os assentos disponiveis
         3)Escolhe se faz uma reserva e quando reserva marca naquele onibus seu assento falando se é janela ou nao 
         4)Gerando por fim um bilhete com suas informações da viagem
+```
 
-    • Utilidades dos Arquivos de reserva e relatorios:
-        O arquivo de reserva é gerado apos passar todos os passos dos horarios do busao , guardando  no formato CIDADE,HORARIO(hh:mm),DATA(dd/mm/aaaa),ASSENTO.
+### Utilidades dos Arquivos de reserva e relatorios:
+```bash
+         O arquivo de reserva é gerado apos passar todos os passos dos horarios do busao , guardando  no formato CIDADE,HORARIO(hh:mm),DATA(dd/mm/aaaa),ASSENTO.
         É possivel ler as reservas do relatorio e caso voce crie uma linha com os mesmos dados da salva ,essa reserva ira aparecer nos assentos do onibus.
         E no fim dos cadastros de onibus é possivel gerar o relatorio das viagens mensais ,com os valores e ocupações
-    
-
-| Ao cliclar em uma          | Resultado                                                | 
-| :-------------------------:| :-------------------------------------------------------:|
-|   MINA                     | Voce perde o jogo(BOOOM)                                 | 
-|   CASA SEGURA              | Mostra o numero de minas existentes nas 8 casas vizinhas | 
-|   CASA SEGURA(0 MINAS)     | Jogo abre automaticamente as casas ao redor              | 
-
-
-## Condições de Vitória e Derrota
-
-  ### Vitória
-```
-* O jogador vence ao conseguir marcar com M todas as posições que possuem Minas
-* O jogador conseguir abrir todas casas seguras(que nao contêm minas)
-```
-
-### Derrota
-```bash
-* Abrir uma posição que contém uma mina.
 ```
 
 ## Bibliotecas Usadas
@@ -68,3 +51,14 @@ Utiliza a biblioteca os para integração com outros sistemas operacionais,poden
 Utiliza a biblioteca platform usamos para acessar dados do windows ou do linux.
 
 ## Considerações Finais
+
+
+
+| Ao cliclar em uma          | Resultado                                                | 
+| :-------------------------:| :-------------------------------------------------------:|
+|   MINA                     | Voce perde o jogo(BOOOM)                                 | 
+|   CASA SEGURA              | Mostra o numero de minas existentes nas 8 casas vizinhas | 
+|   CASA SEGURA(0 MINAS)     | Jogo abre automaticamente as casas ao redor              | 
+
+
+## Condições de Vitória e Derrota
