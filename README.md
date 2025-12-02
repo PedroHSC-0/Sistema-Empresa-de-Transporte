@@ -1,4 +1,4 @@
-# 🚀 Sistema de Transporte de Passageiros
+# Sistema de Transporte de Passageiros
 
 Este é um sistema de gerenciamento de linhas de ônibus e reservas de assentos, implementado em Python. Ele permite o cadastro, alteração e remoção de rotas, a consulta de assentos em datas futuras e a geração de relatórios de ocupação e arrecadação.
 
