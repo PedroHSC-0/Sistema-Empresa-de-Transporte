@@ -39,7 +39,7 @@ Este é um sistema que implementamos em python para organizar uma linha de trans
 
 ### Utilidades dos Arquivos de reserva e relatorios:
 ```bash
-         O arquivo de reserva é gerado apos passar todos os passos dos horarios do busao , guardando  no formato CIDADE,HORARIO(hh:mm),DATA(dd/mm/aaaa),ASSENTO.
+        O arquivo de reserva é gerado apos passar todos os passos dos horarios do busao , guardando  no formato CIDADE,HORARIO(hh:mm),DATA(dd/mm/aaaa),ASSENTO.
         É possivel ler as reservas do relatorio e caso voce crie uma linha com os mesmos dados da salva ,essa reserva ira aparecer nos assentos do onibus.
         E no fim dos cadastros de onibus é possivel gerar o relatorio das viagens mensais ,com os valores e ocupações
 ```
@@ -51,14 +51,3 @@ Utiliza a biblioteca os para integração com outros sistemas operacionais,poden
 Utiliza a biblioteca platform usamos para acessar dados do windows ou do linux.
 
 ## Considerações Finais
-
-
-
-| Ao cliclar em uma          | Resultado                                                | 
-| :-------------------------:| :-------------------------------------------------------:|
-|   MINA                     | Voce perde o jogo(BOOOM)                                 | 
-|   CASA SEGURA              | Mostra o numero de minas existentes nas 8 casas vizinhas | 
-|   CASA SEGURA(0 MINAS)     | Jogo abre automaticamente as casas ao redor              | 
-
-
-## Condições de Vitória e Derrota
