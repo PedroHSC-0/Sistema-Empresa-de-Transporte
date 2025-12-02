@@ -10,7 +10,7 @@ Este é um sistema de gerenciamento de linhas de ônibus e reservas de assentos,
 
 ---
 
-## ✨ Funcionalidades Principais
+## Funcionalidades Principais
 
 O sistema é baseado em **Linhas** (rotas fixas) e **Ônibus** (instâncias de viagem para cada dia).
 
@@ -23,7 +23,7 @@ O sistema é baseado em **Linhas** (rotas fixas) e **Ônibus** (instâncias de v
 
 ---
 
-## 🏗️ Estrutura do Código (Módulos)
+## Estrutura do Código (Módulos)
 
 O projeto é modularizado para melhor organização e manutenção:
 
