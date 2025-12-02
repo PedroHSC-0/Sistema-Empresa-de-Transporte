@@ -1,54 +1,70 @@
-# Sistema de Empresa de Transporte de Passageiros (Python)
+# 🚀 Sistema de Transporte de Passageiros
 
-*Contribuintes:Pedro Francisco Sousa Silva,Pedro Henrique Silva Costa
+Este é um sistema de gerenciamento de linhas de ônibus e reservas de assentos, implementado em Python. Ele permite o cadastro, alteração e remoção de rotas, a consulta de assentos em datas futuras e a geração de relatórios de ocupação e arrecadação.
 
-*Orientador: Guido Pantuza 
+| Detalhes do Projeto | |
+| :--- | :--- |
+| **Contribuintes** | Pedro Francisco Sousa Silva, Pedro Henrique Silva Costa |
+| **Orientador** | Guido Pantuza |
+| **Linguagem** | Python 3 |
 
-Este é um sistema que implementamos em python para organizar uma linha de transporte de passageiros,nos dando a possibilidade de criar,alterar,remover as linhas e poder adicionar os onibus a cada linha criada,podendo tambem no final do codigo gerar um relatorio e guardar em um txt as reservas.
+---
 
-##  Funcionalidades
-* Criação de Linhas com inserção,remoção,alteração.Cada linha contendo cidade de origem,cidade de destino ,horario de partida(hora:minuto) e valor da passagem.
-* Cada linha tem onibus que partem dela ,os onibus tendo as informações da data de partida(dia/mes/ano) e os assentos com disponibilidade.
+## ✨ Funcionalidades Principais
 
-## Permissões do Sistema
+O sistema é baseado em **Linhas** (rotas fixas) e **Ônibus** (instâncias de viagem para cada dia).
 
-* Cadastro de Linhas no Sistema.
-* Consultar os horarios para determinada cidade e poder analisar os assentos disponveis e por fim poder reserva-los.
-* Quando inserimos o dia(pegamos o dia de hoje com a biblioteca time) ,conferimos se o horario do onibus daquele dia ja passou ou nao.
-* Possibilitamos a geração de relatorios do total de dinheiro arrecadado e com a matriz(com txt ou no terminal).
-* Temos uma matriz que expoem a ocupação com porcentagem de cada linha em dias da semana.
-* As reservas de lugares salvas podem ser lidas depois caso a linha que elas pertencem exista.
+* **Cadastro Completo de Linhas:** Inserção, remoção e alteração de rotas com **Cidade de Origem**, **Cidade de Destino**, **Horário de Partida (HH:MM)** e **Valor da Passagem**.
+* **Gestão de Frota:** Cada linha gera automaticamente ônibus para os **próximos 30 dias**, cada um com 20 assentos.
+* **Consulta e Reserva de Assentos:** Permite ao usuário buscar viagens para uma cidade e realizar a reserva, verificando a disponibilidade em tempo real e gerando um **Comprovante de Reserva**.
+* **Validação de Viagem:** O sistema garante que reservas sejam feitas apenas para datas futuras, dentro do limite de **30 dias** e respeitando o horário de partida no dia atual.
+* **Relatórios Gerenciais:** Geração de relatórios de arrecadação total e **Matriz de Ocupação Média (%) por Dia da Semana**, com opção de saída no terminal ou em arquivo TXT.
+* **Persistência de Reservas:** As reservas realizadas são salvas em **`reservas.txt`** e podem ser **carregadas** na inicialização do sistema através da opção de menu.
 
-## Como Executar
-    Para jogar, você precisa ter o Python 3 instalado em sua máquina, ai é necessario baixar os arquivos main.py,modelo.py,relatorios.py,reservas.py,linhas.py,abrir o terminal e navegar ate o diretorio do arquivo e tem que executar o script com Bash python e a sequencia de arquivos ou apenas clilcar para rodar no vs code
+---
 
+## 🏗️ Estrutura do Código (Módulos)
 
-### Como jogar
+O projeto é modularizado para melhor organização e manutenção:
 
-    • Ao iniciar, o programa solicitará que você defina:
-        Uma ou mais linhas no programa com cidade origem,partida,horario e valor
-        Da a possibilidade remoção,inserção e alteração
-        Possa ver as linhas cadastradas
+| Módulo | Responsabilidade |
+| :--- | :--- |
+| `main.py` | Loop principal do sistema e menu de navegação. |
+| `modelo.py` | Contém as classes **`Linha`** e **`Onibus`**, que definem a estrutura de dados. |
+| `linhas.py` | Funções de **CRUD** (Cadastro, Remoção, Alteração) e consulta de linhas. |
+| `reservas.py` | Lógica de **leitura** de reservas (`reservas.txt`), registro de falhas e **aplicação** de novas reservas. |
+| `relatorios.py` | Lógica para **gerar relatórios** e calcular a **Matriz de Ocupação** (média percentual por dia da semana). |
+| `util.py` | Funções de uso geral: avisos na tela, limpeza de terminal e **validação de data/hora**. |
 
-  ### Funcionalidades dos Horarios com Busões:
-```
-        1)Consultar horarios ,passando a cidade de origem e o ID do busao
-        2)Apos consulta do horario,voce é redirecionado para ver os assentos disponiveis
-        3)Escolhe se faz uma reserva e quando reserva marca naquele onibus seu assento falando se é janela ou nao 
-        4)Gerando por fim um bilhete com suas informações da viagem
-```
+---
 
-### Utilidades dos Arquivos de reserva e relatorios:
-```bash
-        O arquivo de reserva é gerado apos passar todos os passos dos horarios do busao , guardando  no formato CIDADE,HORARIO(hh:mm),DATA(dd/mm/aaaa),ASSENTO.
-        É possivel ler as reservas do relatorio e caso voce crie uma linha com os mesmos dados da salva ,essa reserva ira aparecer nos assentos do onibus.
-        E no fim dos cadastros de onibus é possivel gerar o relatorio das viagens mensais ,com os valores e ocupações
-```
+## 🛠️ Tecnologias e Dependências
 
-## Bibliotecas Usadas
+O sistema utiliza exclusivamente bibliotecas nativas do Python:
 
-Utiliza as bibliotecas time com as funcoes datetime e timedelta para poder pegarmos o dia de hoje e data do agora.
-Utiliza a biblioteca os para integração com outros sistemas operacionais,podendo usar clear e outras funcionalidades,
-Utiliza a biblioteca platform usamos para acessar dados do windows ou do linux.
+* **`datetime` e `timedelta`:** Gestão de tempo, datas e o limite de 30 dias para as viagens.
+* **`os` e `platform`:** Usadas para garantir a compatibilidade da limpeza de terminal (`cls` ou `clear`) em diferentes sistemas operacionais.
+* **`time`:** Usada para criar pausas controladas e simular atrasos nos avisos.
 
-## Considerações Finais
+---
+
+## 💻 Como Executar
+
+Para rodar o sistema, você precisa ter o **Python 3** instalado em sua máquina.
+
+1.  **Baixe os Arquivos:** Certifique-se de que todos os arquivos do projeto (ex: `main.py`, `modelo.py`, `linhas.py`, etc.) estão no mesmo diretório.
+2.  **Abra o Terminal:** Navegue até o diretório onde os arquivos estão salvos.
+3.  **Execute:** Utilize o comando para rodar o script principal:
+
+    ```bash
+    python main.py
+    ```
+
+### Guia de Uso Rápido
+
+O programa opera através de um menu interativo:
+
+1.  **Comece em `[1] - Inserir linha`:** Crie as rotas (linhas) do sistema.
+2.  **Utilize `[5] - Consultar horários e Assentos`:** Este é o fluxo de reserva. Após escolher a linha e a data, você será direcionado para a tela de assentos e poderá confirmar a reserva.
+3.  **Use `[6] - Ler reservas no arquivo`:** Carrega as reservas salvas anteriormente em `reservas.txt`.
+4.  **Finalize com `[7] - Gerar relatório`:** Obtenha as métricas de arrecadação e ocupação.
